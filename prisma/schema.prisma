@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Doctor {
+  id             Int                  @id @default(autoincrement())
+  nombre         String
+  foto           String?
+  texto          String?
+  activo         Boolean              @default(true)
+  orden          Int                  @default(0)
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  especialidades DoctorEspecialidad[]
+  sedes          DoctorSede[]
+}
+
+model Especialidad {
+  id       Int                  @id @default(autoincrement())
+  nombre   String               @unique
+  doctores DoctorEspecialidad[]
+}
+
+model Sede {
+  id       Int          @id @default(autoincrement())
+  nombre   String       @unique
+  doctores DoctorSede[]
+}
+
+model DoctorEspecialidad {
+  doctorId       Int
+  especialidadId Int
+  doctor         Doctor       @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  especialidad   Especialidad @relation(fields: [especialidadId], references: [id])
+
+  @@id([doctorId, especialidadId])
+}
+
+model DoctorSede {
+  doctorId Int
+  sedeId   Int
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  sede     Sede   @relation(fields: [sedeId], references: [id])
+
+  @@id([doctorId, sedeId])
+}
+
+model CategoriaNoticia {
+  id        Int       @id @default(autoincrement())
+  nombre    String    @unique
+  slug      String    @unique
+  color     String    @default("#00b3a4")
+  novedades Novedad[]
+}
+
+model Novedad {
+  id               Int               @id @default(autoincrement())
+  titulo           String
+  slug             String            @unique
+  contenido        String
+  imagenDestacada  String?
+  publicado        Boolean           @default(false)
+  destacada        Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  categoriaId      Int?
+  categoria        CategoriaNoticia? @relation(fields: [categoriaId], references: [id])
+}

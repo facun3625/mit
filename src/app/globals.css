@@ -1,26 +1,54 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-mit-teal: #00b3a4;
+  --color-mit-teal-dark: #009e90;
+  --color-mit-teal-light: #e6f7f6;
+  --color-mit-purple: #5f2c82;
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #374151;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── Tiptap editor ─────────────────────────────────────────────────── */
+.tiptap p.is-editor-empty:first-child::before {
+  color: rgba(255,255,255,0.2);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+.tiptap h2 { font-size: 1.4rem; font-weight: 600; margin: 1.2rem 0 0.6rem; }
+.tiptap h3 { font-size: 1.1rem; font-weight: 600; margin: 1rem 0 0.5rem; }
+.tiptap p  { margin: 0.5rem 0; line-height: 1.7; }
+.tiptap ul { list-style: disc; padding-left: 1.4rem; margin: 0.5rem 0; }
+.tiptap ol { list-style: decimal; padding-left: 1.4rem; margin: 0.5rem 0; }
+.tiptap li { margin: 0.25rem 0; }
+.tiptap strong { font-weight: 700; }
+.tiptap em { font-style: italic; }
+.tiptap u  { text-decoration: underline; }
+
+/* ── Novedad content (public) ──────────────────────────────────────── */
+.novedad-content h2 { font-size: 1.5rem; font-weight: 600; color: #1f2937; margin: 2rem 0 0.75rem; }
+.novedad-content h3 { font-size: 1.2rem; font-weight: 600; color: #374151; margin: 1.5rem 0 0.5rem; }
+.novedad-content p  { margin: 0.75rem 0; line-height: 1.8; color: #4b5563; font-weight: 300; }
+.novedad-content ul { list-style: disc; padding-left: 1.5rem; margin: 0.75rem 0; }
+.novedad-content ol { list-style: decimal; padding-left: 1.5rem; margin: 0.75rem 0; }
+.novedad-content li { margin: 0.35rem 0; color: #4b5563; font-weight: 300; }
+.novedad-content strong { font-weight: 600; color: #374151; }
+.novedad-content a  { color: #00b3a4; text-decoration: underline; }
+.novedad-content img { border-radius: 0.75rem; max-width: 100%; margin: 1.5rem 0; }
+.novedad-content iframe { border-radius: 0.75rem; width: 100%; aspect-ratio: 16/9; margin: 1.5rem 0; }
