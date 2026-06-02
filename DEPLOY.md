@@ -9,9 +9,9 @@
 | Elemento | Valor |
 |---|---|
 | **App Engine** | Next.js corriendo sobre **PM2** |
-| **Puerto de la App** | `3007` (Araí usa 3006, Profly usa 3000) |
+| **Puerto de la App** | `3010` (3007 ocupado, 3000-3009 en uso) |
 | **Base de Datos** | PostgreSQL en Docker (`mit-db`) |
-| **Proxy Inverso** | Nginx → `grupomit.com.ar` → puerto `3007` |
+| **Proxy Inverso** | Nginx → `web.grupomit.com.ar` → puerto `3007` |
 | **Ruta del Proyecto** | `/root/mit/mit` |
 | **Repo GitHub** | `https://github.com/facun3625/mit.git` |
 
@@ -76,7 +76,7 @@ npm run build
 ### 5. Configurar PM2
 
 ```bash
-PORT=3007 pm2 start npm --name "mit" -- start
+PORT=3010 pm2 start npm --name "mit" -- start
 pm2 save
 pm2 startup   # seguir las instrucciones que imprime para arranque automático
 ```
@@ -97,13 +97,13 @@ Contenido:
 ```nginx
 server {
     listen 80;
-    server_name grupomit.com.ar www.grupomit.com.ar;
+    server_name web.grupomit.com.ar;
 
     # Tamaño máximo para subida de imágenes
     client_max_body_size 20M;
 
     location / {
-        proxy_pass http://localhost:3007;
+        proxy_pass http://localhost:3010;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -125,7 +125,7 @@ sudo systemctl reload nginx
 ### 7. SSL con Certbot (recomendado)
 
 ```bash
-certbot --nginx -d grupomit.com.ar -d www.grupomit.com.ar
+certbot --nginx -d web.grupomit.com.ar
 ```
 
 ---
@@ -166,7 +166,7 @@ npm install
 npx prisma generate
 npx prisma db push
 npm run build
-PORT=3007 pm2 restart mit
+PORT=3010 pm2 restart mit
 ```
 
 ---
@@ -240,7 +240,7 @@ df -h /                            # Espacio en disco
 |---|---|
 | `3000` | Profly (no tocar) |
 | `3006` | Araí Yerba Mate |
-| **`3007`** | **Grupo MIT** ← esta app |
+| **`3010`** | **Grupo MIT** ← esta app |
 | `5432` | PostgreSQL nativo (si existe) |
 | `5433` | Araí DB |
 | **`5434`** | **MIT DB** ← este proyecto |
