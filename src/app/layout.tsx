@@ -15,7 +15,6 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Grupo MIT — Medicina Interdisciplinaria y Trasplantes",
   description: "Centro médico líder del Litoral y segundo centro de trasplante renal en Argentina.",
-  icons: { icon: "/favicon.png" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
