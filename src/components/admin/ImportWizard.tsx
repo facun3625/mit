@@ -420,7 +420,7 @@ export default function ImportWizard({ sedes }: { sedes: Sede[] }) {
               Ver staff médico
             </a>
             <button
-              onClick={() => { setStep(0); setRawText(""); setSelectedSedes([]); setRows([]); setResult(null); }}
+              onClick={() => { setStep(0); setFile(null); setParsedCount(0); setSelectedSedes([]); setRows([]); setResult(null); }}
               className="border border-white/[0.1] text-white/40 hover:text-white/70 text-sm font-light px-5 py-2.5 rounded-lg transition-colors"
             >
               Nueva importación

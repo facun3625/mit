@@ -159,7 +159,7 @@ export default function TiptapEditor({
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Link.configure({ openOnClick: false, HTMLAttributes: { class: "text-mit-teal underline" } }),
       Image.configure({ HTMLAttributes: { class: "rounded-lg max-w-full my-4" } }),
-      Youtube.configure({ width: "100%", HTMLAttributes: { class: "rounded-lg my-4 w-full aspect-video" } }),
+      Youtube.configure({ HTMLAttributes: { class: "rounded-lg my-4 w-full aspect-video" } }),
       Placeholder.configure({ placeholder: "Escribí el contenido de la novedad..." }),
     ],
     content: initialContent,
