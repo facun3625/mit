@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 
-export async function createDoctor(prevState: { error?: string } | null, formData: FormData) {
+export async function createDoctor(prevState: void | { error?: string } | null, formData: FormData) {
   const nombre = (formData.get("nombre") as string)?.trim();
   const foto = (formData.get("foto") as string)?.trim() || null;
   const texto = (formData.get("texto") as string)?.trim() || null;
@@ -36,7 +36,7 @@ export async function createDoctor(prevState: { error?: string } | null, formDat
   redirect("/admin/staff");
 }
 
-export async function updateDoctor(id: number, prevState: { error?: string } | null, formData: FormData) {
+export async function updateDoctor(id: number, prevState: void | { error?: string } | null, formData: FormData) {
   const nombre = (formData.get("nombre") as string)?.trim();
   const foto = (formData.get("foto") as string)?.trim() || null;
   const texto = (formData.get("texto") as string)?.trim() || null;

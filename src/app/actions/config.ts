@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 
 // ── Especialidades ─────────────────────────────────────────────────────────────
 
-export async function createEspecialidad(prevState: { error?: string } | null, formData: FormData) {
+export async function createEspecialidad(prevState: void | { error?: string } | null, formData: FormData) {
   const nombre = (formData.get("nombre") as string)?.trim();
   if (!nombre) return { error: "El nombre es obligatorio." };
 
@@ -17,7 +17,7 @@ export async function createEspecialidad(prevState: { error?: string } | null, f
   return null;
 }
 
-export async function updateEspecialidad(id: number, prevState: { error?: string } | null, formData: FormData) {
+export async function updateEspecialidad(id: number, prevState: void | { error?: string } | null, formData: FormData) {
   const nombre = (formData.get("nombre") as string)?.trim();
   if (!nombre) return { error: "El nombre es obligatorio." };
 
@@ -36,7 +36,7 @@ export async function deleteEspecialidad(id: number) {
 
 // ── Sedes ──────────────────────────────────────────────────────────────────────
 
-export async function createSede(prevState: { error?: string } | null, formData: FormData) {
+export async function createSede(prevState: void | { error?: string } | null, formData: FormData) {
   const nombre = (formData.get("nombre") as string)?.trim();
   if (!nombre) return { error: "El nombre es obligatorio." };
 
@@ -48,7 +48,7 @@ export async function createSede(prevState: { error?: string } | null, formData:
   return null;
 }
 
-export async function updateSede(id: number, prevState: { error?: string } | null, formData: FormData) {
+export async function updateSede(id: number, prevState: void | { error?: string } | null, formData: FormData) {
   const nombre = (formData.get("nombre") as string)?.trim();
   if (!nombre) return { error: "El nombre es obligatorio." };
 

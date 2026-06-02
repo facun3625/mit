@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { createSession, deleteSession } from "@/lib/session";
 
-export async function login(prevState: { error?: string } | null, formData: FormData) {
+export async function login(prevState: void | { error?: string } | null, formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 

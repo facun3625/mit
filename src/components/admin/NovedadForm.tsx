@@ -8,7 +8,7 @@ import TiptapEditor from "@/components/admin/TiptapEditor";
 import { useUpload } from "@/lib/useUpload";
 
 type Categoria = { id: number; nombre: string; color: string };
-type Action = (prev: { error?: string } | null, form: FormData) => Promise<{ error?: string } | void>;
+type Action = (prev: void | { error?: string } | null, form: FormData) => Promise<{ error?: string } | null>;
 
 type Novedad = {
   id: number;

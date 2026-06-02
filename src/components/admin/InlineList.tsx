@@ -3,7 +3,7 @@
 import { useActionState, useState } from "react";
 import { Plus, Pencil, Trash2, Check, X, AlertTriangle } from "lucide-react";
 
-type Action = (prev: { error?: string } | null, form: FormData) => Promise<{ error?: string } | null>;
+type Action = (prev: void | { error?: string } | null, form: FormData) => Promise<{ error?: string } | null>;
 type DeleteAction = () => Promise<void>;
 
 export type InlineItem = {
@@ -86,8 +86,8 @@ function EditRow({ item }: { item: InlineItem }) {
   const [editing, setEditing] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [state, formAction, pending] = useActionState(
-    async (prev: { error?: string } | null, form: FormData) => {
-      const result = await item.updateAction(prev, form);
+    async (prev: void | { error?: string } | null, form: FormData) => {
+      const result = await item.updateAction(prev ?? null, form);
       if (!result?.error) setEditing(false);
       return result;
     },

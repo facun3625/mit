@@ -17,7 +17,7 @@ type Doctor = {
   sedes: { sedeId: number }[];
 };
 
-type Action = (prev: { error?: string } | null, form: FormData) => Promise<{ error?: string } | void>;
+type Action = (prev: void | { error?: string } | null, form: FormData) => Promise<{ error?: string } | null>;
 
 // ── Quick-add inline ──────────────────────────────────────────────────────────
 

@@ -29,7 +29,7 @@ async function uniqueSlug(base: string, excludeId?: number) {
 
 // ── Novedades ─────────────────────────────────────────────────────────────────
 
-export async function createNovedad(prevState: { error?: string } | null, formData: FormData) {
+export async function createNovedad(prevState: void | { error?: string } | null, formData: FormData) {
   const titulo = (formData.get("titulo") as string)?.trim();
   const contenido = (formData.get("contenido") as string)?.trim();
   const imagenDestacada = (formData.get("imagenDestacada") as string)?.trim() || null;
@@ -51,7 +51,7 @@ export async function createNovedad(prevState: { error?: string } | null, formDa
   redirect("/admin/novedades");
 }
 
-export async function updateNovedad(id: number, prevState: { error?: string } | null, formData: FormData) {
+export async function updateNovedad(id: number, prevState: void | { error?: string } | null, formData: FormData) {
   const titulo = (formData.get("titulo") as string)?.trim();
   const contenido = (formData.get("contenido") as string)?.trim();
   const imagenDestacada = (formData.get("imagenDestacada") as string)?.trim() || null;
