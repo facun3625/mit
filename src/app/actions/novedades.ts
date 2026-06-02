@@ -87,18 +87,17 @@ export async function togglePublicado(id: number, publicado: boolean) {
 
 // ── Categorias ────────────────────────────────────────────────────────────────
 
-export async function createCategoria(prevState: { error?: string } | null, formData: FormData) {
+export async function createCategoria(formData: FormData) {
   const nombre = (formData.get("nombre") as string)?.trim();
   const color = (formData.get("color") as string)?.trim() || "#00b3a4";
-  if (!nombre) return { error: "El nombre es obligatorio." };
+  if (!nombre) return;
 
   const slug = toSlug(nombre);
   const exists = await prisma.categoriaNoticia.findUnique({ where: { nombre } });
-  if (exists) return { error: "Ya existe esa categoría." };
+  if (exists) return;
 
   await prisma.categoriaNoticia.create({ data: { nombre, slug, color } });
   revalidatePath("/admin/novedades");
-  return null;
 }
 
 export async function deleteCategoria(id: number) {
