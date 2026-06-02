@@ -82,9 +82,10 @@ export default function NovedadForm({
             Imagen destacada <span className="text-white/20 normal-case tracking-normal">(opcional)</span>
           </label>
 
-          {imgUrl ? (
+          {imgUrl?.startsWith("/") ? (
             <div className="relative w-full h-44 rounded-xl overflow-hidden group">
-              <Image src={imgUrl} alt="Imagen destacada" fill className="object-cover" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={imgUrl} alt="Imagen destacada" className="object-cover w-full h-full" />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                 <label className="flex items-center gap-1.5 text-xs text-white bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg cursor-pointer transition-colors">
                   <Upload size={12} strokeWidth={1.5} /> Cambiar
