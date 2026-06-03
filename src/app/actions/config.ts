@@ -47,7 +47,6 @@ export async function deleteEspecialidad(id: number) {
 export async function normalizeEspecialidades() {
   const all = await prisma.especialidad.findMany({ include: { doctores: true } });
 
-  // Group by normalized name
   const groups = new Map<string, typeof all>();
   for (const esp of all) {
     const key = esp.nombre.trim().toLowerCase();
@@ -56,24 +55,33 @@ export async function normalizeEspecialidades() {
   }
 
   for (const [, group] of groups) {
-    const canonical = group.reduce((a, b) => (b.doctores.length > a.doctores.length ? b : a));
-    const normalizedName = toTitleCase(canonical.nombre);
+    const normalizedName = toTitleCase(group[0].nombre);
+    // Pick canonical: prefer already-normalized name, else most doctors
+    const canonical =
+      group.find((e) => e.nombre === normalizedName) ??
+      group.reduce((a, b) => (b.doctores.length > a.doctores.length ? b : a));
 
-    // Rename canonical to normalized title case
-    await prisma.especialidad.update({ where: { id: canonical.id }, data: { nombre: normalizedName } });
+    const duplicates = group.filter((e) => e.id !== canonical.id);
+    const canonDoctorIds = new Set(canonical.doctores.map((d) => d.doctorId));
 
-    // Merge duplicates into canonical
-    for (const dup of group) {
-      if (dup.id === canonical.id) continue;
-      const canonDoctorIds = new Set(canonical.doctores.map((d) => d.doctorId));
+    for (const dup of duplicates) {
+      // Reassign doctors not already on canonical
       for (const rel of dup.doctores) {
         if (!canonDoctorIds.has(rel.doctorId)) {
           await prisma.doctorEspecialidad.create({
             data: { doctorId: rel.doctorId, especialidadId: canonical.id },
           });
+          canonDoctorIds.add(rel.doctorId);
         }
       }
+      // Must delete FK rows before deleting the especialidad (no cascade defined)
+      await prisma.doctorEspecialidad.deleteMany({ where: { especialidadId: dup.id } });
       await prisma.especialidad.delete({ where: { id: dup.id } });
+    }
+
+    // Rename AFTER duplicates are gone (avoids unique constraint collision)
+    if (canonical.nombre !== normalizedName) {
+      await prisma.especialidad.update({ where: { id: canonical.id }, data: { nombre: normalizedName } });
     }
   }
 

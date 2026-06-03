@@ -169,10 +169,14 @@ export default function InlineList({
   subtitle: string;
 }) {
   return (
-    <div className="p-8 max-w-2xl w-full">
-      <p className="text-white/30 text-xs font-light tracking-[0.2em] uppercase mb-1">Configuración</p>
-      <h1 className="text-white text-2xl font-light mb-1">{title}</h1>
-      <p className="text-white/25 text-xs font-light mb-8">{subtitle}</p>
+    <div className={title ? "p-8 max-w-2xl w-full" : "max-w-2xl w-full"}>
+      {title && (
+        <>
+          <p className="text-white/30 text-xs font-light tracking-[0.2em] uppercase mb-1">Configuración</p>
+          <h1 className="text-white text-2xl font-light mb-1">{title}</h1>
+          <p className="text-white/25 text-xs font-light mb-8">{subtitle}</p>
+        </>
+      )}
 
       <AddForm createAction={createAction} />
 
