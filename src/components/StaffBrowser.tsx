@@ -61,7 +61,7 @@ function DoctorModal({ doc, onClose }: { doc: Doctor; onClose: () => void }) {
 
 // ── Checkbox item ─────────────────────────────────────────────────────────────
 
-function CheckItem({ label, checked, onChange, count }: { label: string; checked: boolean; onChange: () => void; count?: number }) {
+function CheckItem({ label, checked, onChange }: { label: string; checked: boolean; onChange: () => void; count?: number }) {
   return (
     <label className="flex items-center gap-2.5 py-1.5 cursor-pointer group">
       <span className={`w-4 h-4 rounded border flex items-center justify-center flex-shrink-0 transition-all ${
@@ -71,7 +71,6 @@ function CheckItem({ label, checked, onChange, count }: { label: string; checked
       </span>
       <input type="checkbox" checked={checked} onChange={onChange} className="sr-only" />
       <span className={`text-xs font-light transition-colors flex-1 ${checked ? "text-gray-700" : "text-gray-400 group-hover:text-gray-600"}`}>{label}</span>
-      {count !== undefined && <span className="text-[10px] text-gray-300 font-light">{count}</span>}
     </label>
   );
 }
