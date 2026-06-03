@@ -176,26 +176,26 @@ export default function DoctorForm({
 
         {/* Especialidades */}
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <label className="text-[10px] font-medium tracking-[0.15em] uppercase text-white/40">
-              Especialidades *
-            </label>
-          </div>
-          <div className="grid grid-cols-2 gap-2 max-h-52 overflow-y-auto pr-1 mb-1">
-            {[...especialidades]
-              .sort((a, b) => toTitleCase(a.nombre).localeCompare(toTitleCase(b.nombre), "es"))
-              .map((e) => (
-                <label key={e.id} className="flex items-center gap-2.5 cursor-pointer group">
-                  <input
-                    type="checkbox"
-                    name="especialidades"
-                    value={e.id}
-                    defaultChecked={selectedEsp.has(e.id)}
-                    className="w-3.5 h-3.5 accent-[#00b3a4] rounded"
-                  />
-                  <span className="text-xs text-white/50 group-hover:text-white/80 transition-colors font-light">{toTitleCase(e.nombre)}</span>
-                </label>
-              ))}
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-3">
+            Especialidades *
+          </label>
+          <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-2">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-0.5">
+              {[...especialidades]
+                .sort((a, b) => toTitleCase(a.nombre).localeCompare(toTitleCase(b.nombre), "es"))
+                .map((e) => (
+                  <label key={e.id} className="flex items-center gap-2.5 py-1.5 cursor-pointer group rounded-lg px-2 -mx-2 hover:bg-white/[0.04] transition-colors">
+                    <input
+                      type="checkbox"
+                      name="especialidades"
+                      value={e.id}
+                      defaultChecked={selectedEsp.has(e.id)}
+                      className="w-3.5 h-3.5 flex-shrink-0 accent-[#00b3a4] cursor-pointer"
+                    />
+                    <span className="text-xs text-white/55 group-hover:text-white/85 transition-colors font-light leading-tight">{toTitleCase(e.nombre)}</span>
+                  </label>
+                ))}
+            </div>
           </div>
           <QuickAdd label="especialidad" onAdd={() => {}} />
         </div>
@@ -205,19 +205,21 @@ export default function DoctorForm({
           <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-3">
             Sedes *
           </label>
-          <div className="grid grid-cols-1 gap-2 mb-1">
-            {sedes.map((s) => (
-              <label key={s.id} className="flex items-center gap-2.5 cursor-pointer group">
-                <input
-                  type="checkbox"
-                  name="sedes"
-                  value={s.id}
-                  defaultChecked={selectedSedes.has(s.id)}
-                  className="w-3.5 h-3.5 accent-[#00b3a4] rounded"
-                />
-                <span className="text-xs text-white/50 group-hover:text-white/80 transition-colors font-light">{s.nombre}</span>
-              </label>
-            ))}
+          <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-2">
+            <div className="flex flex-col gap-0.5">
+              {sedes.map((s) => (
+                <label key={s.id} className="flex items-center gap-3 py-2 px-2 -mx-2 cursor-pointer group rounded-lg hover:bg-white/[0.04] transition-colors">
+                  <input
+                    type="checkbox"
+                    name="sedes"
+                    value={s.id}
+                    defaultChecked={selectedSedes.has(s.id)}
+                    className="w-3.5 h-3.5 flex-shrink-0 accent-[#00b3a4] cursor-pointer"
+                  />
+                  <span className="text-sm text-white/60 group-hover:text-white/90 transition-colors font-light">{s.nombre}</span>
+                </label>
+              ))}
+            </div>
           </div>
           <QuickAdd label="sede" onAdd={() => {}} />
         </div>
