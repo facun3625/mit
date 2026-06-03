@@ -19,6 +19,10 @@ type Doctor = {
 
 type Action = (prev: void | { error?: string } | null, form: FormData) => Promise<{ error?: string } | null>;
 
+function toTitleCase(s: string): string {
+  return s.toLowerCase().replace(/(^|\s)(\S)/g, (_, sp, ch) => sp + ch.toUpperCase());
+}
+
 // ── Quick-add inline ──────────────────────────────────────────────────────────
 
 function QuickAdd({
@@ -178,18 +182,20 @@ export default function DoctorForm({
             </label>
           </div>
           <div className="grid grid-cols-2 gap-2 max-h-52 overflow-y-auto pr-1 mb-1">
-            {especialidades.map((e) => (
-              <label key={e.id} className="flex items-center gap-2.5 cursor-pointer group">
-                <input
-                  type="checkbox"
-                  name="especialidades"
-                  value={e.id}
-                  defaultChecked={selectedEsp.has(e.id)}
-                  className="w-3.5 h-3.5 accent-[#00b3a4] rounded"
-                />
-                <span className="text-xs text-white/50 group-hover:text-white/80 transition-colors font-light">{e.nombre}</span>
-              </label>
-            ))}
+            {[...especialidades]
+              .sort((a, b) => toTitleCase(a.nombre).localeCompare(toTitleCase(b.nombre), "es"))
+              .map((e) => (
+                <label key={e.id} className="flex items-center gap-2.5 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    name="especialidades"
+                    value={e.id}
+                    defaultChecked={selectedEsp.has(e.id)}
+                    className="w-3.5 h-3.5 accent-[#00b3a4] rounded"
+                  />
+                  <span className="text-xs text-white/50 group-hover:text-white/80 transition-colors font-light">{toTitleCase(e.nombre)}</span>
+                </label>
+              ))}
           </div>
           <QuickAdd label="especialidad" onAdd={() => {}} />
         </div>

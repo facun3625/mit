@@ -59,6 +59,10 @@ function DoctorModal({ doc, onClose }: { doc: Doctor; onClose: () => void }) {
   );
 }
 
+function toTitleCase(s: string): string {
+  return s.toLowerCase().replace(/(^|\s)(\S)/g, (_, sp, ch) => sp + ch.toUpperCase());
+}
+
 // ── Checkbox item ─────────────────────────────────────────────────────────────
 
 function CheckItem({ label, checked, onChange }: { label: string; checked: boolean; onChange: () => void; count?: number }) {
@@ -66,7 +70,7 @@ function CheckItem({ label, checked, onChange }: { label: string; checked: boole
     <label className="flex items-center gap-2.5 py-1.5 cursor-pointer group">
       <span className={`w-4 h-4 rounded border flex items-center justify-center flex-shrink-0 transition-all ${
         checked ? "bg-mit-teal border-mit-teal" : "border-gray-200 group-hover:border-mit-teal/50"
-      }`} onClick={onChange}>
+      }`}>
         {checked && <svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L3 5L7 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
       </span>
       <input type="checkbox" checked={checked} onChange={onChange} className="sr-only" />
@@ -141,26 +145,37 @@ export default function StaffBrowser({ doctors, sedes }: { doctors: Doctor[]; se
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [page, setPage] = useState(1);
 
-  // Especialidades disponibles según sedes seleccionadas
-  const availableEsps = useMemo<Especialidad[]>(() => {
-    const map = new Map<number, Especialidad>();
+  // Especialidades disponibles según sedes seleccionadas, deduplicadas por nombre (case-insensitive)
+  const availableEsps = useMemo<{ nombre: string; ids: number[] }[]>(() => {
+    const map = new Map<string, { nombre: string; ids: number[] }>();
     for (const doc of doctors) {
       const inSede = doc.sedes.some((s) => sedesChecked.has(s.sede.id));
       if (inSede) {
         for (const { especialidad } of doc.especialidades) {
-          if (!map.has(especialidad.id)) map.set(especialidad.id, especialidad);
+          const key = especialidad.nombre.trim().toLowerCase();
+          if (!map.has(key)) {
+            map.set(key, { nombre: toTitleCase(especialidad.nombre), ids: [especialidad.id] });
+          } else {
+            const g = map.get(key)!;
+            if (!g.ids.includes(especialidad.id)) g.ids.push(especialidad.id);
+          }
         }
       }
     }
-    return [...map.values()].sort((a, b) => a.nombre.localeCompare(b.nombre));
+    return [...map.values()].sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
   }, [doctors, sedesChecked]);
 
-  // Al cambiar sedes, resetear especialidades al nuevo available set
-  const allEspIds = useMemo(() => new Set(availableEsps.map((e) => e.id)), [availableEsps]);
+  const allEspIds = useMemo(() => {
+    const s = new Set<number>();
+    for (const g of availableEsps) g.ids.forEach((id) => s.add(id));
+    return s;
+  }, [availableEsps]);
 
   // Inicializar esps cuando estén disponibles
   if (!espsInitialized && availableEsps.length > 0) {
-    setEspsChecked(new Set(availableEsps.map((e) => e.id)));
+    const all = new Set<number>();
+    for (const g of availableEsps) g.ids.forEach((id) => all.add(id));
+    setEspsChecked(all);
     setEspsInitialized(true);
   }
 
@@ -185,9 +200,14 @@ export default function StaffBrowser({ doctors, sedes }: { doctors: Doctor[]; se
     resetPage();
   }
 
-  function toggleEsp(id: number) {
+  function toggleEsp(ids: number[]) {
     const next = new Set(espsChecked);
-    next.has(id) ? next.delete(id) : next.add(id);
+    const allChecked = ids.every((id) => next.has(id));
+    if (allChecked) {
+      ids.forEach((id) => next.delete(id));
+    } else {
+      ids.forEach((id) => next.add(id));
+    }
     setEspsChecked(next);
     resetPage();
   }
@@ -319,13 +339,13 @@ export default function StaffBrowser({ doctors, sedes }: { doctors: Doctor[]; se
             </button>
           </div>
           <div className="space-y-0.5 max-h-72 overflow-y-auto pr-1">
-            {availableEsps.map((e) => (
+            {availableEsps.map((g) => (
               <CheckItem
-                key={e.id}
-                label={e.nombre}
-                checked={espsChecked.has(e.id)}
-                onChange={() => toggleEsp(e.id)}
-                count={countByEsp.get(e.id) ?? 0}
+                key={g.nombre}
+                label={g.nombre}
+                checked={g.ids.every((id) => espsChecked.has(id))}
+                onChange={() => toggleEsp(g.ids)}
+                count={g.ids.reduce((sum, id) => sum + (countByEsp.get(id) ?? 0), 0)}
               />
             ))}
           </div>
