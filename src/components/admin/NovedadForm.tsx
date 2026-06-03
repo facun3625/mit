@@ -36,12 +36,16 @@ export default function NovedadForm({
   const [imgUrl, setImgUrl] = useState(novedad?.imagenDestacada ?? "");
   const { upload, uploading } = useUpload();
   const contenidoRef = useRef<HTMLInputElement>(null);
+  const lastUploadTime = useRef<number>(0);
 
   async function handleUploadImg(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
     const url = await upload(file);
-    if (url) setImgUrl(url);
+    if (url) {
+      lastUploadTime.current = Date.now();
+      setImgUrl(url);
+    }
   }
 
   function handleSubmit(formData: FormData) {
@@ -85,7 +89,12 @@ export default function NovedadForm({
           {imgUrl?.startsWith("/") ? (
             <div className="relative w-full h-44 rounded-xl overflow-hidden group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={imgUrl} alt="Imagen destacada" className="object-cover w-full h-full" />
+              <img
+                src={imgUrl}
+                alt="Imagen destacada"
+                className="object-cover w-full h-full"
+                onError={() => { if (Date.now() - lastUploadTime.current > 3000) setImgUrl(""); }}
+              />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                 <label className="flex items-center gap-1.5 text-xs text-white bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg cursor-pointer transition-colors">
                   <Upload size={12} strokeWidth={1.5} /> Cambiar
