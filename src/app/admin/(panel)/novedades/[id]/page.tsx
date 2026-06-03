@@ -12,5 +12,5 @@ export default async function EditarNovedadPage({ params }: { params: Promise<{ 
   if (!novedad) notFound();
 
   const action = updateNovedad.bind(null, novedad.id);
-  return <NovedadForm action={action} categorias={categorias} novedad={novedad} />;
+  return <NovedadForm key={novedad.id} action={action} categorias={categorias} novedad={novedad} />;
 }
