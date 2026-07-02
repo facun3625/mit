@@ -69,15 +69,15 @@ model CategoriaNoticia {
 }
 
 model Novedad {
-  id               Int               @id @default(autoincrement())
-  titulo           String
-  slug             String            @unique
-  contenido        String
-  imagenDestacada  String?
-  publicado        Boolean           @default(false)
-  destacada        Boolean           @default(false)
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
-  categoriaId      Int?
-  categoria        CategoriaNoticia? @relation(fields: [categoriaId], references: [id])
+  id              Int               @id @default(autoincrement())
+  titulo          String
+  slug            String            @unique
+  contenido       String
+  imagenDestacada String?
+  publicado       Boolean           @default(false)
+  destacada       Boolean           @default(false)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  categoriaId     Int?
+  categoria       CategoriaNoticia? @relation(fields: [categoriaId], references: [id])
 }

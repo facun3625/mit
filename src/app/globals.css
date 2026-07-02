@@ -5,7 +5,12 @@
   --color-mit-teal-dark: #009e90;
   --color-mit-teal-light: #e6f7f6;
   --color-mit-purple: #5f2c82;
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-familjen);
+  --font-heading: var(--font-cairo);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-cairo);
 }
 
 *, *::before, *::after {
