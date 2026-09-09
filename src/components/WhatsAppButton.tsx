@@ -1,9 +1,12 @@
 import { MessageCircle } from "lucide-react";
+import { getConfiguracion, whatsappHref } from "@/lib/configuracion";
 
-export default function WhatsAppButton() {
+export default async function WhatsAppButton() {
+  const { whatsapp } = await getConfiguracion();
+
   return (
     <a
-      href="https://wa.me/5434245372622"
+      href={whatsappHref(whatsapp)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"

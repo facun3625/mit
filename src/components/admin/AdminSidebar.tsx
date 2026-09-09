@@ -14,6 +14,7 @@ import {
   Building2,
   LogOut,
   ChevronRight,
+  MessageCircle,
 } from "lucide-react";
 
 const nav = [
@@ -23,6 +24,7 @@ const nav = [
   { label: "Especialidades", href: "/admin/especialidades", icon: Stethoscope },
   { label: "Sedes", href: "/admin/sedes", icon: MapPin },
   { label: "Novedades", href: "/admin/novedades", icon: Newspaper },
+  { label: "WhatsApp", href: "/admin/configuracion", icon: MessageCircle },
 ];
 
 export default function AdminSidebar() {

@@ -17,6 +17,12 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Configuracion {
+  id        Int      @id @default(autoincrement())
+  whatsapp  String   @default("+54 342 4 537262")
+  updatedAt DateTime @updatedAt
+}
+
 model Doctor {
   id             Int                  @id @default(autoincrement())
   nombre         String

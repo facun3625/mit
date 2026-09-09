@@ -3,6 +3,7 @@ import Link from "next/link";
 import HeroSlider from "@/components/HeroSlider";
 import GalleryCarousel from "@/components/GalleryCarousel";
 import { prisma } from "@/lib/prisma";
+import { getConfiguracion, whatsappHref } from "@/lib/configuracion";
 import {
   Heart,
   ArrowRight,
@@ -115,6 +116,7 @@ export default async function HomePage() {
     take: 3,
     include: { categoria: true },
   });
+  const { whatsapp } = await getConfiguracion();
 
   return (
     <>
@@ -154,7 +156,7 @@ export default async function HomePage() {
           </Link>
 
           <a
-            href="https://wa.me/5434245372622"
+            href={whatsappHref(whatsapp)}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2.5 px-6 py-4 bg-mit-teal hover:bg-mit-teal-dark transition-colors duration-300"
@@ -162,7 +164,7 @@ export default async function HomePage() {
             <MessageCircle size={18} strokeWidth={1.5} className="flex-shrink-0 opacity-80" />
             <div>
               <p className="text-[10px] font-light text-white/75 tracking-wider">Whatsapp</p>
-              <p className="text-xs font-medium tracking-wide">+54 342 4 537262</p>
+              <p className="text-xs font-medium tracking-wide">{whatsapp}</p>
             </div>
           </a>
       </div>

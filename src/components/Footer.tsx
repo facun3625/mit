@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Phone, MessageCircle, MapPin } from "lucide-react";
+import { getConfiguracion, whatsappHref } from "@/lib/configuracion";
 
 const centros = [
   { nombre: "Consultorios Mit", dir: "Av Freyre 3155" },
@@ -11,7 +12,9 @@ const centros = [
   { nombre: "Las Acacias", dir: "Aut Santa Fe Rosario Km 157" },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  const { whatsapp } = await getConfiguracion();
+
   return (
     <footer>
       <div className="bg-[#5f2c82] text-white pt-14 pb-12 relative overflow-hidden">
@@ -79,11 +82,11 @@ export default function Footer() {
                 Centro Único de Contacto
               </h3>
               <p className="text-xl font-light tracking-wide text-white/90 mb-1">
-                +54 342 4 537262
+                {whatsapp}
               </p>
               <p className="text-xs text-white/40 font-light mb-5">Lunes a viernes · 8 a 20 hs</p>
               <a
-                href="https://wa.me/5434245372622"
+                href={whatsappHref(whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-xs font-medium border border-white/20 text-white/70 px-4 py-2.5 rounded-full hover:bg-white/10 hover:border-white/40 hover:text-white transition-all duration-300"

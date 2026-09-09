@@ -119,3 +119,22 @@ export async function deleteSede(id: number) {
   await prisma.sede.delete({ where: { id } });
   revalidatePath("/admin/sedes");
 }
+
+// ── Configuración ────────────────────────────────────────────────────────────
+
+export async function updateConfiguracion(prevState: void | { error?: string } | null, formData: FormData) {
+  const whatsapp = (formData.get("whatsapp") as string)?.trim();
+  if (!whatsapp) return { error: "El número de WhatsApp es obligatorio." };
+  if (whatsapp.replace(/\D/g, "").length < 8) return { error: "Ingresá un número de WhatsApp válido." };
+
+  const existing = await prisma.configuracion.findFirst();
+  if (existing) {
+    await prisma.configuracion.update({ where: { id: existing.id }, data: { whatsapp } });
+  } else {
+    await prisma.configuracion.create({ data: { whatsapp } });
+  }
+
+  revalidatePath("/admin/configuracion");
+  revalidatePath("/", "layout");
+  return null;
+}
