@@ -256,9 +256,9 @@ export default async function HomePage() {
                 href={`/novedades/${n.slug}`}
                 className="group bg-white rounded-lg overflow-hidden shadow-[0_1px_6px_rgba(0,0,0,0.07)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-0.5"
               >
-                <div className="relative h-48 overflow-hidden bg-gray-50">
+                <div className="relative aspect-[702/380] overflow-hidden bg-gray-50">
                   {n.imagenDestacada
-                    ? <Image src={n.imagenDestacada} alt={n.titulo} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    ? <Image src={n.imagenDestacada} alt={n.titulo} fill sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                     : <div className="w-full h-full bg-gradient-to-br from-mit-teal/10 to-mit-purple/10" />
                   }
                   {n.categoria && (

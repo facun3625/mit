@@ -87,7 +87,7 @@ export default function NovedadForm({
           </label>
 
           {imgUrl?.startsWith("/") ? (
-            <div className="relative w-full h-44 rounded-xl overflow-hidden group">
+            <div className="relative w-full aspect-[702/380] rounded-xl overflow-hidden group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={imgUrl}
@@ -106,11 +106,11 @@ export default function NovedadForm({
               </div>
             </div>
           ) : (
-            <label className={`flex flex-col items-center justify-center gap-2 w-full h-32 border-2 border-dashed border-white/[0.1] rounded-xl cursor-pointer hover:border-mit-teal/40 hover:bg-white/[0.02] transition-all ${uploading ? "opacity-50 pointer-events-none" : ""}`}>
+            <label className={`flex flex-col items-center justify-center gap-2 w-full aspect-[702/380] border-2 border-dashed border-white/[0.1] rounded-xl cursor-pointer hover:border-mit-teal/40 hover:bg-white/[0.02] transition-all ${uploading ? "opacity-50 pointer-events-none" : ""}`}>
               <input type="file" accept="image/*" className="sr-only" onChange={handleUploadImg} />
               {uploading
                 ? <><Loader2 size={20} strokeWidth={1.5} className="animate-spin text-mit-teal" /><span className="text-xs text-white/30">Subiendo...</span></>
-                : <><Upload size={20} strokeWidth={1} className="text-white/20" /><span className="text-xs text-white/30 font-light">Subir imagen</span><span className="text-[10px] text-white/15">JPG, PNG, WEBP · máx 8MB</span></>
+                : <><Upload size={20} strokeWidth={1} className="text-white/20" /><span className="text-xs text-white/30 font-light">Subir imagen</span><span className="text-[10px] text-white/15">Recomendado 702×380 px · JPG, PNG, WEBP · máx 8MB</span></>
               }
             </label>
           )}

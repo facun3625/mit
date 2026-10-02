@@ -40,8 +40,8 @@ export default async function NovedadPage({ params }: { params: Promise<{ slug: 
 
       {/* Imagen destacada */}
       {novedad.imagenDestacada && (
-        <div className="relative h-72 md:h-96 rounded-2xl overflow-hidden mb-10 shadow-[0_4px_24px_rgba(0,0,0,0.1)]">
-          <Image src={novedad.imagenDestacada} alt={novedad.titulo} fill className="object-cover" />
+        <div className="relative aspect-[702/380] rounded-2xl overflow-hidden mb-10 shadow-[0_4px_24px_rgba(0,0,0,0.1)]">
+          <Image src={novedad.imagenDestacada} alt={novedad.titulo} fill priority sizes="(min-width:768px) 768px, 100vw" className="object-cover" />
         </div>
       )}
 
