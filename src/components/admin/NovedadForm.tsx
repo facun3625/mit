@@ -58,36 +58,36 @@ export default function NovedadForm({
 
   return (
     <div className="p-8 max-w-4xl w-full">
-      <Link href="/admin/novedades" className="inline-flex items-center gap-1.5 text-white/30 text-xs hover:text-white/60 transition-colors mb-8">
+      <Link href="/admin/novedades" className="inline-flex items-center gap-1.5 text-gray-500 text-xs hover:text-gray-600 transition-colors mb-8">
         <ArrowLeft size={13} strokeWidth={1.5} />
         Volver a novedades
       </Link>
 
-      <p className="text-white/30 text-xs font-light tracking-[0.2em] uppercase mb-1">Novedades</p>
-      <h1 className="text-white text-2xl font-light mb-8">{novedad ? "Editar novedad" : "Nueva novedad"}</h1>
+      <p className="text-gray-500 text-xs font-light tracking-[0.2em] uppercase mb-1">Novedades</p>
+      <h1 className="text-gray-900 text-2xl font-light mb-8">{novedad ? "Editar novedad" : "Nueva novedad"}</h1>
 
       <form action={handleSubmit} className="space-y-6">
         {/* Título */}
         <div>
-          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-1.5">Título *</label>
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-gray-500 mb-1.5">Título *</label>
           <input
             type="text"
             name="titulo"
             required
             defaultValue={novedad?.titulo}
-            className="w-full bg-white/[0.05] border border-white/[0.1] rounded-lg px-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-mit-teal/60 transition-all"
+            className="w-full bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-mit-teal/60 transition-all"
             placeholder="Título de la novedad..."
           />
         </div>
 
         {/* Imagen destacada */}
         <div>
-          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-2">
-            Imagen destacada <span className="text-white/20 normal-case tracking-normal">(opcional)</span>
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-gray-500 mb-2">
+            Imagen destacada <span className="text-gray-400 normal-case tracking-normal">(opcional)</span>
           </label>
 
           {imgUrl?.startsWith("/") ? (
-            <div className="relative w-full aspect-[702/380] rounded-xl overflow-hidden group">
+            <div className="relative w-full max-w-xl aspect-[702/380] rounded-xl overflow-hidden group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={imgUrl}
@@ -106,11 +106,11 @@ export default function NovedadForm({
               </div>
             </div>
           ) : (
-            <label className={`flex flex-col items-center justify-center gap-2 w-full aspect-[702/380] border-2 border-dashed border-white/[0.1] rounded-xl cursor-pointer hover:border-mit-teal/40 hover:bg-white/[0.02] transition-all ${uploading ? "opacity-50 pointer-events-none" : ""}`}>
+            <label className={`flex flex-col items-center justify-center gap-2 w-full max-w-xl aspect-[702/380] border-2 border-dashed border-gray-200 rounded-xl cursor-pointer hover:border-mit-teal/40 hover:bg-gray-50 transition-all ${uploading ? "opacity-50 pointer-events-none" : ""}`}>
               <input type="file" accept="image/*" className="sr-only" onChange={handleUploadImg} />
               {uploading
-                ? <><Loader2 size={20} strokeWidth={1.5} className="animate-spin text-mit-teal" /><span className="text-xs text-white/30">Subiendo...</span></>
-                : <><Upload size={20} strokeWidth={1} className="text-white/20" /><span className="text-xs text-white/30 font-light">Subir imagen</span><span className="text-[10px] text-white/15">Recomendado 702×380 px · JPG, PNG, WEBP · máx 8MB</span></>
+                ? <><Loader2 size={20} strokeWidth={1.5} className="animate-spin text-mit-teal" /><span className="text-xs text-gray-500">Subiendo...</span></>
+                : <><Upload size={20} strokeWidth={1} className="text-gray-400" /><span className="text-xs text-gray-500 font-light">Subir imagen</span><span className="text-[10px] text-gray-400">Recomendado 702×380 px · JPG, PNG, WEBP · máx 8MB</span></>
               }
             </label>
           )}
@@ -118,11 +118,11 @@ export default function NovedadForm({
 
         {/* Categoría */}
         <div>
-          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-1.5">Categoría</label>
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-gray-500 mb-1.5">Categoría</label>
           <select
             name="categoriaId"
             defaultValue={novedad?.categoriaId ?? ""}
-            className="bg-white/[0.05] border border-white/[0.1] rounded-lg px-4 py-2.5 text-sm text-white/70 focus:outline-none focus:border-mit-teal/60 transition-all"
+            className="bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:border-mit-teal/60 transition-all"
           >
             <option value="">Sin categoría</option>
             {categorias.map((c) => (
@@ -137,7 +137,7 @@ export default function NovedadForm({
             type="button"
             onClick={() => setPublicado(!publicado)}
             className={`flex items-center gap-2 text-xs font-medium px-4 py-2 rounded-lg border transition-all ${
-              publicado ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400" : "bg-white/[0.04] border-white/[0.08] text-white/30"
+              publicado ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-600" : "bg-gray-50 border-gray-200 text-gray-500"
             }`}
           >
             {publicado ? <Eye size={13} strokeWidth={1.5} /> : <EyeOff size={13} strokeWidth={1.5} />}
@@ -147,7 +147,7 @@ export default function NovedadForm({
             type="button"
             onClick={() => setDestacada(!destacada)}
             className={`flex items-center gap-2 text-xs font-medium px-4 py-2 rounded-lg border transition-all ${
-              destacada ? "bg-amber-500/10 border-amber-500/30 text-amber-400" : "bg-white/[0.04] border-white/[0.08] text-white/30"
+              destacada ? "bg-amber-500/10 border-amber-500/30 text-amber-600" : "bg-gray-50 border-gray-200 text-gray-500"
             }`}
           >
             <Star size={13} strokeWidth={1.5} />
@@ -157,12 +157,12 @@ export default function NovedadForm({
 
         {/* Editor */}
         <div>
-          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-2">Contenido *</label>
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-gray-500 mb-2">Contenido *</label>
           <TiptapEditor initialContent={novedad?.contenido ?? ""} onChange={setContenido} />
         </div>
 
         {state?.error && (
-          <p className="text-red-400 text-xs py-2.5 px-4 bg-red-500/10 rounded-lg border border-red-500/20">{state.error}</p>
+          <p className="text-red-600 text-xs py-2.5 px-4 bg-red-500/10 rounded-lg border border-red-500/20">{state.error}</p>
         )}
 
         <div className="flex items-center gap-3 pt-2">
@@ -173,7 +173,7 @@ export default function NovedadForm({
           >
             {pending ? "Guardando..." : novedad ? "Guardar cambios" : "Crear novedad"}
           </button>
-          <Link href="/admin/novedades" className="text-sm text-white/30 hover:text-white/60 transition-colors px-4 py-2.5">
+          <Link href="/admin/novedades" className="text-sm text-gray-500 hover:text-gray-600 transition-colors px-4 py-2.5">
             Cancelar
           </Link>
         </div>

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import HeroSlider from "@/components/HeroSlider";
 import GalleryCarousel from "@/components/GalleryCarousel";
+import HomePopup from "@/components/HomePopup";
 import { prisma } from "@/lib/prisma";
 import { getConfiguracion, whatsappHref } from "@/lib/configuracion";
 import {
@@ -120,6 +121,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <HomePopup />
       <HeroSlider />
 
       {/* Quick links bar */}

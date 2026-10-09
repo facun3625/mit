@@ -66,7 +66,7 @@ function QuickAdd({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex items-center gap-1 text-[10px] text-white/25 hover:text-mit-teal transition-colors mt-1"
+        className="flex items-center gap-1 text-[10px] text-gray-500 hover:text-mit-teal transition-colors mt-1"
       >
         <Plus size={11} strokeWidth={1.5} /> Nueva {label}
       </button>
@@ -82,7 +82,7 @@ function QuickAdd({
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); submit(); } if (e.key === "Escape") setOpen(false); }}
         placeholder={`Nombre de la ${label}...`}
-        className="flex-1 bg-white/[0.06] border border-white/[0.12] rounded-lg px-3 py-1.5 text-xs text-white placeholder-white/20 focus:outline-none focus:border-mit-teal/50 transition-all"
+        className="flex-1 bg-gray-50 border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-mit-teal/50 transition-all"
       />
       <button
         type="button"
@@ -92,10 +92,10 @@ function QuickAdd({
       >
         {isPending ? <div className="w-3 h-3 border border-mit-teal/40 border-t-mit-teal rounded-full animate-spin" /> : <Check size={12} strokeWidth={2} />}
       </button>
-      <button type="button" onClick={() => { setOpen(false); setValue(""); setError(""); }} className="p-1.5 text-white/25 hover:text-white/60 rounded-lg transition-colors">
+      <button type="button" onClick={() => { setOpen(false); setValue(""); setError(""); }} className="p-1.5 text-gray-500 hover:text-gray-600 rounded-lg transition-colors">
         <X size={12} strokeWidth={1.5} />
       </button>
-      {error && <p className="text-red-400 text-[10px]">{error}</p>}
+      {error && <p className="text-red-600 text-[10px]">{error}</p>}
     </div>
   );
 }
@@ -120,20 +120,20 @@ export default function DoctorForm({
 
   return (
     <div className="p-8 max-w-2xl w-full">
-      <Link href="/admin/staff" className="inline-flex items-center gap-1.5 text-white/30 text-xs hover:text-white/60 transition-colors mb-8">
+      <Link href="/admin/staff" className="inline-flex items-center gap-1.5 text-gray-500 text-xs hover:text-gray-600 transition-colors mb-8">
         <ArrowLeft size={13} strokeWidth={1.5} />
         Volver al listado
       </Link>
 
-      <p className="text-white/30 text-xs font-light tracking-[0.2em] uppercase mb-1">Staff Médico</p>
-      <h1 className="text-white text-2xl font-light mb-8">
+      <p className="text-gray-500 text-xs font-light tracking-[0.2em] uppercase mb-1">Staff Médico</p>
+      <h1 className="text-gray-900 text-2xl font-light mb-8">
         {doctor ? "Editar médico" : "Nuevo médico"}
       </h1>
 
       <form action={formAction} className="space-y-6">
         {/* Nombre */}
         <div>
-          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-1.5">
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-gray-500 mb-1.5">
             Nombre completo *
           </label>
           <input
@@ -141,50 +141,50 @@ export default function DoctorForm({
             name="nombre"
             required
             defaultValue={doctor?.nombre}
-            className="w-full bg-white/[0.05] border border-white/[0.1] rounded-lg px-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-mit-teal/60 transition-all"
+            className="w-full bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-mit-teal/60 transition-all"
             placeholder="Dr. Juan Pérez"
           />
         </div>
 
         {/* Foto URL */}
         <div>
-          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-1.5">
-            URL de foto <span className="text-white/20 normal-case tracking-normal">(opcional)</span>
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-gray-500 mb-1.5">
+            URL de foto <span className="text-gray-400 normal-case tracking-normal">(opcional)</span>
           </label>
           <input
             type="url"
             name="foto"
             defaultValue={doctor?.foto ?? ""}
-            className="w-full bg-white/[0.05] border border-white/[0.1] rounded-lg px-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-mit-teal/60 transition-all"
+            className="w-full bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-mit-teal/60 transition-all"
             placeholder="https://..."
           />
         </div>
 
         {/* Texto/Bio */}
         <div>
-          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-1.5">
-            Descripción <span className="text-white/20 normal-case tracking-normal">(opcional)</span>
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-gray-500 mb-1.5">
+            Descripción <span className="text-gray-400 normal-case tracking-normal">(opcional)</span>
           </label>
           <textarea
             name="texto"
             rows={3}
             defaultValue={doctor?.texto ?? ""}
-            className="w-full bg-white/[0.05] border border-white/[0.1] rounded-lg px-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-mit-teal/60 transition-all resize-none"
+            className="w-full bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-mit-teal/60 transition-all resize-none"
             placeholder="Breve descripción del médico..."
           />
         </div>
 
         {/* Especialidades */}
         <div>
-          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-3">
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-gray-500 mb-3">
             Especialidades *
           </label>
-          <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-2">
+          <div className="bg-white border border-gray-200 rounded-xl p-4 mb-2">
             <div className="grid grid-cols-2 gap-x-6 gap-y-0.5">
               {[...especialidades]
                 .sort((a, b) => toTitleCase(a.nombre).localeCompare(toTitleCase(b.nombre), "es"))
                 .map((e) => (
-                  <label key={e.id} className="flex items-center gap-2.5 py-1.5 cursor-pointer group rounded-lg px-2 -mx-2 hover:bg-white/[0.04] transition-colors">
+                  <label key={e.id} className="flex items-center gap-2.5 py-1.5 cursor-pointer group rounded-lg px-2 -mx-2 hover:bg-gray-50 transition-colors">
                     <input
                       type="checkbox"
                       name="especialidades"
@@ -192,7 +192,7 @@ export default function DoctorForm({
                       defaultChecked={selectedEsp.has(e.id)}
                       className="w-3.5 h-3.5 flex-shrink-0 accent-[#00b3a4] cursor-pointer"
                     />
-                    <span className="text-xs text-white/55 group-hover:text-white/85 transition-colors font-light leading-tight">{toTitleCase(e.nombre)}</span>
+                    <span className="text-xs text-gray-600 group-hover:text-gray-800 transition-colors font-light leading-tight">{toTitleCase(e.nombre)}</span>
                   </label>
                 ))}
             </div>
@@ -202,13 +202,13 @@ export default function DoctorForm({
 
         {/* Sedes */}
         <div>
-          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-3">
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-gray-500 mb-3">
             Sedes *
           </label>
-          <div className="bg-white/[0.03] border border-white/[0.08] rounded-xl p-4 mb-2">
+          <div className="bg-white border border-gray-200 rounded-xl p-4 mb-2">
             <div className="flex flex-col gap-0.5">
               {sedes.map((s) => (
-                <label key={s.id} className="flex items-center gap-3 py-2 px-2 -mx-2 cursor-pointer group rounded-lg hover:bg-white/[0.04] transition-colors">
+                <label key={s.id} className="flex items-center gap-3 py-2 px-2 -mx-2 cursor-pointer group rounded-lg hover:bg-gray-50 transition-colors">
                   <input
                     type="checkbox"
                     name="sedes"
@@ -216,7 +216,7 @@ export default function DoctorForm({
                     defaultChecked={selectedSedes.has(s.id)}
                     className="w-3.5 h-3.5 flex-shrink-0 accent-[#00b3a4] cursor-pointer"
                   />
-                  <span className="text-sm text-white/60 group-hover:text-white/90 transition-colors font-light">{s.nombre}</span>
+                  <span className="text-sm text-gray-600 group-hover:text-gray-800 transition-colors font-light">{s.nombre}</span>
                 </label>
               ))}
             </div>
@@ -226,20 +226,20 @@ export default function DoctorForm({
 
         {/* Orden */}
         <div>
-          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-1.5">
-            Orden <span className="text-white/20 normal-case tracking-normal">(0 = automático)</span>
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-gray-500 mb-1.5">
+            Orden <span className="text-gray-400 normal-case tracking-normal">(0 = automático)</span>
           </label>
           <input
             type="number"
             name="orden"
             defaultValue={doctor?.orden ?? 0}
             min={0}
-            className="w-28 bg-white/[0.05] border border-white/[0.1] rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-mit-teal/60 transition-all"
+            className="w-28 bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:border-mit-teal/60 transition-all"
           />
         </div>
 
         {state?.error && (
-          <p className="text-red-400 text-xs py-2.5 px-4 bg-red-500/10 rounded-lg border border-red-500/20">
+          <p className="text-red-600 text-xs py-2.5 px-4 bg-red-500/10 rounded-lg border border-red-500/20">
             {state.error}
           </p>
         )}
@@ -252,7 +252,7 @@ export default function DoctorForm({
           >
             {pending ? "Guardando..." : doctor ? "Guardar cambios" : "Crear médico"}
           </button>
-          <Link href="/admin/staff" className="text-sm text-white/30 hover:text-white/60 transition-colors px-4 py-2.5">
+          <Link href="/admin/staff" className="text-sm text-gray-500 hover:text-gray-600 transition-colors px-4 py-2.5">
             Cancelar
           </Link>
         </div>

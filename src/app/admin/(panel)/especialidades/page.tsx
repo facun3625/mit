@@ -18,17 +18,17 @@ export default async function EspecialidadesPage() {
 
   return (
     <div className="p-8 max-w-2xl w-full">
-      <p className="text-white/30 text-xs font-light tracking-[0.2em] uppercase mb-1">Configuración</p>
+      <p className="text-gray-500 text-xs font-light tracking-[0.2em] uppercase mb-1">Configuración</p>
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="text-white text-2xl font-light mb-1">Especialidades</h1>
-          <p className="text-white/25 text-xs font-light">Gestioná las especialidades disponibles para asignar a los médicos.</p>
+          <h1 className="text-gray-900 text-2xl font-light mb-1">Especialidades</h1>
+          <p className="text-gray-500 text-xs font-light">Gestioná las especialidades disponibles para asignar a los médicos.</p>
         </div>
         <form action={normalizeEspecialidades}>
           <button
             type="submit"
             title="Unifica entradas con el mismo nombre en distintas grafías (CARDIOLOGÍA → Cardiología)"
-            className="flex-shrink-0 text-xs text-white/50 hover:text-white/90 bg-white/[0.05] hover:bg-white/[0.09] border border-white/[0.1] rounded-lg px-3 py-1.5 transition-all whitespace-nowrap"
+            className="flex-shrink-0 text-xs text-gray-600 hover:text-gray-800 bg-white hover:bg-gray-100 border border-gray-200 rounded-lg px-3 py-1.5 transition-all whitespace-nowrap"
           >
             Normalizar duplicados
           </button>

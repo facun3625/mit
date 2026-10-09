@@ -30,7 +30,7 @@ body {
 
 /* ── Tiptap editor ─────────────────────────────────────────────────── */
 .tiptap p.is-editor-empty:first-child::before {
-  color: rgba(255,255,255,0.2);
+  color: #9ca3af;
   content: attr(data-placeholder);
   float: left;
   height: 0;
@@ -45,6 +45,8 @@ body {
 .tiptap strong { font-weight: 700; }
 .tiptap em { font-style: italic; }
 .tiptap u  { text-decoration: underline; }
+.tiptap a  { color: #00b3a4; text-decoration: underline; }
+.tiptap img { max-width: 100%; border-radius: 0.75rem; margin: 1rem 0; }
 
 /* ── Novedad content (public) ──────────────────────────────────────── */
 .novedad-content h2 { font-size: 1.5rem; font-weight: 600; color: #1f2937; margin: 2rem 0 0.75rem; }
@@ -57,3 +59,8 @@ body {
 .novedad-content a  { color: #00b3a4; text-decoration: underline; }
 .novedad-content img { border-radius: 0.75rem; max-width: 100%; margin: 1.5rem 0; }
 .novedad-content iframe { border-radius: 0.75rem; width: 100%; aspect-ratio: 16/9; margin: 1.5rem 0; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

@@ -42,12 +42,12 @@ export default async function AdminDashboard() {
     <div className="p-8 max-w-5xl w-full">
       {/* Header */}
       <div className="mb-10">
-        <p className="text-white/30 text-xs font-light tracking-[0.2em] uppercase mb-1">
+        <p className="text-gray-500 text-xs font-light tracking-[0.2em] uppercase mb-1">
           Panel de administración
         </p>
-        <h1 className="text-white text-2xl font-light">Dashboard</h1>
-        <p className="text-white/30 text-xs mt-1">
-          Bienvenido, <span className="text-white/50">{session?.email}</span>
+        <h1 className="text-gray-900 text-2xl font-light">Dashboard</h1>
+        <p className="text-gray-500 text-xs mt-1">
+          Bienvenido, <span className="text-gray-600">{session?.email}</span>
         </p>
       </div>
 
@@ -57,27 +57,27 @@ export default async function AdminDashboard() {
           <a
             key={label}
             href={href}
-            className="group bg-white/[0.03] border border-white/[0.07] rounded-xl p-6 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-300"
+            className="group bg-white border border-gray-200 rounded-xl p-6 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300"
           >
             <div className="flex items-start justify-between mb-4">
               <div className={`p-2 rounded-lg ${color === "teal" ? "bg-mit-teal/10" : "bg-[#5f2c82]/20"}`}>
                 <Icon
                   size={18}
                   strokeWidth={1.5}
-                  className={color === "teal" ? "text-mit-teal" : "text-[#9b59b6]"}
+                  className={color === "teal" ? "text-mit-teal" : "text-mit-purple"}
                 />
               </div>
-              <Activity size={12} strokeWidth={1.5} className="text-white/15 group-hover:text-white/30 transition-colors" />
+              <Activity size={12} strokeWidth={1.5} className="text-gray-400 group-hover:text-gray-500 transition-colors" />
             </div>
-            <p className="text-3xl font-light text-white mb-1">{value}</p>
-            <p className="text-xs text-white/35 font-light tracking-wide">{label}</p>
+            <p className="text-3xl font-light text-gray-900 mb-1">{value}</p>
+            <p className="text-xs text-gray-500 font-light tracking-wide">{label}</p>
           </a>
         ))}
       </div>
 
       {/* Accesos rápidos */}
       <div>
-        <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-white/25 mb-4">
+        <p className="text-[10px] font-medium tracking-[0.2em] uppercase text-gray-500 mb-4">
           Accesos rápidos
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -88,14 +88,14 @@ export default async function AdminDashboard() {
             <a
               key={label}
               href={href}
-              className="flex items-center gap-4 bg-white/[0.02] border border-white/[0.06] rounded-xl p-5 hover:bg-white/[0.05] hover:border-mit-teal/20 transition-all duration-300 group"
+              className="flex items-center gap-4 bg-gray-50 border border-gray-100 rounded-xl p-5 hover:bg-gray-50 hover:border-mit-teal/20 transition-all duration-300 group"
             >
               <div className="w-9 h-9 rounded-lg bg-mit-teal/10 flex items-center justify-center flex-shrink-0 group-hover:bg-mit-teal/20 transition-colors">
                 <Icon size={16} strokeWidth={1.5} className="text-mit-teal" />
               </div>
               <div>
-                <p className="text-sm text-white/70 font-light">{label}</p>
-                <p className="text-[11px] text-white/25 font-light mt-0.5">{desc}</p>
+                <p className="text-sm text-gray-800 font-light">{label}</p>
+                <p className="text-[11px] text-gray-500 font-light mt-0.5">{desc}</p>
               </div>
             </a>
           ))}

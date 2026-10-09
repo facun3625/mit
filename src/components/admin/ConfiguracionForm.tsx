@@ -16,31 +16,31 @@ export default function ConfiguracionForm({ whatsapp }: { whatsapp: string }) {
 
   return (
     <div className="p-8 max-w-2xl w-full">
-      <p className="text-white/30 text-xs font-light tracking-[0.2em] uppercase mb-1">Configuración</p>
-      <h1 className="text-white text-2xl font-light mb-8">Número de WhatsApp</h1>
+      <p className="text-gray-500 text-xs font-light tracking-[0.2em] uppercase mb-1">Configuración</p>
+      <h1 className="text-gray-900 text-2xl font-light mb-8">Número de WhatsApp</h1>
 
       <form action={formAction} className="space-y-6">
         <div>
-          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-white/40 mb-1.5">
+          <label className="block text-[10px] font-medium tracking-[0.15em] uppercase text-gray-500 mb-1.5">
             Número
           </label>
           <div className="relative">
-            <MessageCircle size={15} strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/25" />
+            <MessageCircle size={15} strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
               type="text"
               name="whatsapp"
               defaultValue={whatsapp}
               placeholder="+54 342 4 537262"
-              className="w-full bg-white/[0.05] border border-white/[0.1] rounded-lg pl-11 pr-4 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-mit-teal/60 transition-all"
+              className="w-full bg-white border border-gray-200 rounded-lg pl-11 pr-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-mit-teal/60 transition-all"
             />
           </div>
-          <p className="text-white/25 text-xs font-light mt-2">
+          <p className="text-gray-500 text-xs font-light mt-2">
             Se usa en el botón flotante, el pie de página y el inicio del sitio. Incluí el código de país.
           </p>
         </div>
 
         {state?.error && (
-          <p className="text-red-400 text-xs py-2.5 px-4 bg-red-500/10 rounded-lg border border-red-500/20">
+          <p className="text-red-600 text-xs py-2.5 px-4 bg-red-500/10 rounded-lg border border-red-500/20">
             {state.error}
           </p>
         )}

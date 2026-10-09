@@ -20,9 +20,9 @@ export default async function AdminStaffPage() {
     <div className="p-8 max-w-6xl w-full">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <p className="text-white/30 text-xs font-light tracking-[0.2em] uppercase mb-1">Gestión</p>
-          <h1 className="text-white text-2xl font-light">Staff Médico</h1>
-          <p className="text-white/30 text-xs mt-1">{doctors.length} médicos registrados</p>
+          <p className="text-gray-500 text-xs font-light tracking-[0.2em] uppercase mb-1">Gestión</p>
+          <h1 className="text-gray-900 text-2xl font-light">Staff Médico</h1>
+          <p className="text-gray-500 text-xs mt-1">{doctors.length} médicos registrados</p>
         </div>
         <Link
           href="/admin/staff/nuevo"
@@ -34,9 +34,9 @@ export default async function AdminStaffPage() {
       </div>
 
       {doctors.length === 0 ? (
-        <div className="bg-white/[0.03] border border-white/[0.07] rounded-xl p-16 text-center">
-          <UserRound size={40} strokeWidth={1} className="text-white/15 mx-auto mb-4" />
-          <p className="text-white/30 text-sm font-light">No hay médicos cargados todavía.</p>
+        <div className="bg-white border border-gray-200 rounded-xl p-16 text-center">
+          <UserRound size={40} strokeWidth={1} className="text-gray-400 mx-auto mb-4" />
+          <p className="text-gray-500 text-sm font-light">No hay médicos cargados todavía.</p>
           <Link href="/admin/staff/nuevo" className="text-mit-teal text-xs font-medium mt-3 inline-block hover:underline">
             Agregar el primero →
           </Link>

@@ -87,3 +87,55 @@ model Novedad {
   categoriaId     Int?
   categoria       CategoriaNoticia? @relation(fields: [categoriaId], references: [id])
 }
+
+// Pop-up del home (un único registro). `version` sube con cada guardado,
+// así "una vez por IP" vuelve a mostrarse cuando se edita el contenido.
+model Popup {
+  id         Int          @id @default(autoincrement())
+  titulo     String       @default("")
+  contenido  String       @default("")
+  activo     Boolean      @default(false)
+  frecuencia String       @default("UNA_VEZ") // UNA_VEZ (por IP) | SIEMPRE (cada ingreso)
+  version    Int          @default(1)
+  updatedAt  DateTime     @updatedAt
+  vistas     PopupVista[]
+}
+
+model PopupVista {
+  id        Int      @id @default(autoincrement())
+  popupId   Int
+  version   Int
+  ipHash    String
+  createdAt DateTime @default(now())
+  popup     Popup    @relation(fields: [popupId], references: [id], onDelete: Cascade)
+
+  @@unique([popupId, version, ipHash])
+}
+
+// Una fila por página vista. No se guarda la IP, solo un hash.
+model Visita {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  path        String
+  visitorId   String // id anónimo persistente del navegador
+  sessionId   String // id anónimo de la sesión (pestaña)
+  ipHash      String
+  referrer    String?
+  refHost     String?
+  fuente      String // DIRECTO | BUSCADOR | SOCIAL | REFERIDO | CAMPANIA
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  pais        String?
+  region      String?
+  ciudad      String?
+  dispositivo String // MOBILE | TABLET | DESKTOP
+  navegador   String
+  sistema     String
+  idioma      String?
+
+  @@index([createdAt])
+  @@index([path, createdAt])
+  @@index([sessionId])
+  @@index([visitorId])
+}
