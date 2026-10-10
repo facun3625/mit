@@ -248,3 +248,14 @@ df -h /                            # Espacio en disco
 ---
 
 *Facundo Arteaga Sola - Grupo MIT*
+
+---
+
+## 🌍 Geolocalización de visitas (país / región / ciudad)
+
+Se resuelve en el servidor contra **GeoLite2-City** (MaxMind), sin mandar ninguna IP a terceros (`lookupGeo` en `src/lib/visitor.ts`).
+
+- Necesita `MAXMIND_ACCOUNT_ID` y `MAXMIND_LICENSE_KEY` en el `.env` (solo para bajar la base).
+- El archivo `data/GeoLite2-City.mmdb` (~65 MB) no viaja por git: hay que bajarlo en cada servidor con `bash scripts/update-geolite2.sh`.
+- Se actualiza solo cada semana en MaxMind, pero acá no: volver a correr el script cada 1-2 meses.
+- Reiniciar pm2 después de reemplazar el archivo (se carga una sola vez en memoria).

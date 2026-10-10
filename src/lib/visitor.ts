@@ -1,4 +1,6 @@
 import { createHash } from "crypto";
+import path from "node:path";
+import maxmind, { type CityResponse, type Reader } from "maxmind";
 
 const SALT = process.env.SESSION_SECRET ?? "mit-admin-secret-change-in-production";
 
@@ -75,25 +77,28 @@ export function geoFromHeaders(h: Headers): Geo {
 const isPrivateIp = (ip: string) =>
   ip === "0.0.0.0" || ip === "::1" || /^(127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|fc|fd|fe80)/i.test(ip);
 
-const geoCache = new Map<string, Geo>();
+// Base local GeoLite2-City (MaxMind, ver scripts/update-geolite2.sh): el lookup
+// nunca sale del servidor, ninguna IP viaja a un tercero. Se abre una sola vez
+// y queda en memoria (el archivo pesa ~65MB).
+const GEO_DB_PATH = path.join(process.cwd(), "data", "GeoLite2-City.mmdb");
+let geoReader: Promise<Reader<CityResponse> | null> | null = null;
 
-// Opcional: consulta un servicio externo (ipwho.is) enviándole la IP del visitante.
-// Está apagado por defecto; se activa con GEOIP_LOOKUP=on.
-export async function lookupGeo(ip: string): Promise<Geo | null> {
-  if (process.env.GEOIP_LOOKUP !== "on" || isPrivateIp(ip)) return null;
-  const hit = geoCache.get(ip);
-  if (hit) return hit;
-  try {
-    const res = await fetch(`https://ipwho.is/${encodeURIComponent(ip)}?fields=success,country_code,region,city`, {
-      signal: AbortSignal.timeout(1500),
-    });
-    const d = await res.json();
-    if (!d.success) return null;
-    const geo: Geo = { pais: d.country_code ?? null, region: d.region ?? null, ciudad: d.city ?? null };
-    if (geoCache.size > 5000) geoCache.clear();
-    geoCache.set(ip, geo);
-    return geo;
-  } catch {
+function loadGeoReader() {
+  geoReader ??= maxmind.open<CityResponse>(GEO_DB_PATH).catch((err) => {
+    console.warn("geo: no se pudo abrir GeoLite2-City.mmdb —", err instanceof Error ? err.message : err);
     return null;
-  }
+  });
+  return geoReader;
+}
+
+export async function lookupGeo(ip: string): Promise<Geo | null> {
+  if (isPrivateIp(ip)) return null;
+  const reader = await loadGeoReader();
+  const r = reader?.get(ip);
+  if (!r) return null;
+  return {
+    pais: r.country?.iso_code ?? null,
+    region: r.subdivisions?.[0]?.names?.en ?? null,
+    ciudad: r.city?.names?.en ?? null,
+  };
 }

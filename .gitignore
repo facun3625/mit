@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+
+# GeoLite2 (MaxMind) — país/región/ciudad de las visitas, ver scripts/update-geolite2.sh
+/data/GeoLite2-City.mmdb

@@ -115,8 +115,7 @@ export default async function EstadisticasPage({ searchParams }: { searchParams:
       </div>
       {sinGeo && (
         <p className="text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-4 py-3 mb-6">
-          Todavía no hay datos de ubicación. El servidor los recibe solo si está detrás de Cloudflare o Vercel, o si se activa
-          <code className="mx-1 px-1 bg-white/70 rounded">GEOIP_LOOKUP=on</code> en el <code className="px-1 bg-white/70 rounded">.env</code> (consulta el servicio externo ipwho.is con la IP del visitante).
+          Todavía no hay datos de ubicación. Se resuelven en el servidor contra la base local GeoLite2 (<code className="px-1 bg-white/70 rounded">data/GeoLite2-City.mmdb</code>); si falta ese archivo, bajalo con <code className="px-1 bg-white/70 rounded">bash scripts/update-geolite2.sh</code>.
         </p>
       )}
 
